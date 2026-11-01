@@ -1,0 +1,57 @@
+# Calls the public core reusable workflow.
+# This file does not name a customer, a host, or a machine.
+# The uses ref and core_sha are the commit in core-pin.
+
+name: deploy
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  pin:
+    runs-on: ubuntu-latest
+    outputs:
+      strategies_blob: ${{ steps.pin.outputs.strategies_blob }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Confirm the core pin
+        id: pin
+        run: |
+          pin="$(tr -d '[:space:]' < core-pin)"
+          if [[ ! "$pin" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "core-pin must be 40 hex characters" >&2
+            exit 1
+          fi
+          if [[ "$pin" == 0000000000000000000000000000000000000000 ]]; then
+            echo "core-pin is still the placeholder" >&2
+            exit 1
+          fi
+          if ! grep -Fq "$pin" .github/workflows/deploy.yml; then
+            echo "deploy.yml does not use the core-pin commit" >&2
+            exit 1
+          fi
+          if [[ ! -s config/strategies.yml ]]; then
+            echo "config/strategies.yml is missing" >&2
+            exit 1
+          fi
+          echo "strategies_blob=$(git hash-object config/strategies.yml)" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: pin
+    if: vars.DEPLOY_ANALYTICS == 'true'
+    uses: SignalNexus/signal-nexus/.github/workflows/analytics-deploy.yml@76ae64a648b58807c070a644c0b006d755063b9e
+    with:
+      core_repository: SignalNexus/signal-nexus
+      core_sha: 76ae64a648b58807c070a644c0b006d755063b9e
+      expected_strategies_blob: ${{ needs.pin.outputs.strategies_blob }}
+      venues_manifest: venueadd/venues.yaml
+      ssh_user: ${{ vars.ANALYTICS_SSH_USER }}
+      core_directory: ${{ vars.ANALYTICS_CORE_DIRECTORY }}
+      venue_directory: ${{ vars.ANALYTICS_VENUE_DIRECTORY }}
+      builtin_venues: ${{ vars.BUILTIN_VENUES }}
+    secrets: inherit
