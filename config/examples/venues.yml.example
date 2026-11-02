@@ -1,0 +1,13 @@
+venues:
+  - id: mexc_spot
+    asset_class: spot
+    enabled: true
+    quote: USDT
+  - id: mexc_futures
+    asset_class: futures
+    enabled: false
+    quote: USDT
+  - id: arcus
+    asset_class: futures
+    enabled: false
+    quote: USD

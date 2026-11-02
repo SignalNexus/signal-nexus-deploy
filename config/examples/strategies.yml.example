@@ -1,0 +1,5 @@
+example-btc-spot:
+  symbol: BTC/USDT
+  side: long
+  venue: mexc_spot
+  size_quote: 10
