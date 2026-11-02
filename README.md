@@ -4,7 +4,7 @@ English is canonical. The Japanese mirror is [README_JA.md](README_JA.md).
 
 Generate a private repository from this template. The repository deploys one Analytics VM. It does not contain the core source, a venue source tree, or a secret value.
 
-`core-pin` is `76ae64a648b58807c070a644c0b006d755063b9e`. That commit of `SignalNexus/signal-nexus` contains `analytics-deploy.yml` and `venueadd-install.yml`. `.github/workflows/deploy.yml` uses that same commit for the `uses` ref and for `core_sha`. The core tree is `SignalNexus/signal-nexus`.
+`core-pin` is `fcb45978df5b17d081b895c24ca1a5ba84d4c3e7`. That commit of `SignalNexus/signal-nexus` contains `analytics-deploy.yml` and `venueadd-install.yml`. `.github/workflows/deploy.yml` uses that same commit for the `uses` ref and for `core_sha`. The core tree is `SignalNexus/signal-nexus`.
 
 ## Before the first run
 
@@ -16,7 +16,7 @@ When you move to a newer public core commit, put that commit in `core-pin` and i
 
 ## Run
 
-Run the `deploy` workflow with `workflow_dispatch`. The workflow passes the variables and secrets into the public reusable workflow. It does not contain a host name.
+Run the `deploy` workflow with `workflow_dispatch`. The workflow passes each secret by name into the public reusable workflow. It does not contain a host name. `venues: []` does not need `VENUEADD_READ_TOKEN`.
 
 ## Repository access
 

@@ -44,14 +44,36 @@ jobs:
   deploy:
     needs: pin
     if: vars.DEPLOY_ANALYTICS == 'true'
-    uses: SignalNexus/signal-nexus/.github/workflows/analytics-deploy.yml@76ae64a648b58807c070a644c0b006d755063b9e
+    uses: SignalNexus/signal-nexus/.github/workflows/analytics-deploy.yml@fcb45978df5b17d081b895c24ca1a5ba84d4c3e7
     with:
       core_repository: SignalNexus/signal-nexus
-      core_sha: 76ae64a648b58807c070a644c0b006d755063b9e
+      core_sha: fcb45978df5b17d081b895c24ca1a5ba84d4c3e7
       expected_strategies_blob: ${{ needs.pin.outputs.strategies_blob }}
       venues_manifest: venueadd/venues.yaml
       ssh_user: ${{ vars.ANALYTICS_SSH_USER }}
       core_directory: ${{ vars.ANALYTICS_CORE_DIRECTORY }}
       venue_directory: ${{ vars.ANALYTICS_VENUE_DIRECTORY }}
       builtin_venues: ${{ vars.BUILTIN_VENUES }}
-    secrets: inherit
+    secrets:
+      venueadd_read_token: ${{ secrets.VENUEADD_READ_TOKEN }}
+      ANALYTICS_SSH_HOST: ${{ secrets.ANALYTICS_SSH_HOST }}
+      ANALYTICS_SSH_PRIVATE_KEY: ${{ secrets.ANALYTICS_SSH_PRIVATE_KEY }}
+      ANALYTICS_SSH_HOST_FINGERPRINT: ${{ secrets.ANALYTICS_SSH_HOST_FINGERPRINT }}
+      ANALYTICS_API_SECRET: ${{ secrets.ANALYTICS_API_SECRET }}
+      ANALYTICS_DB_PASSWORD: ${{ secrets.ANALYTICS_DB_PASSWORD }}
+      RENDER_HEALTH_URL: ${{ secrets.RENDER_HEALTH_URL }}
+      CADDY_SITE_ADDRESS: ${{ secrets.CADDY_SITE_ADDRESS }}
+      KILL_SWITCH: ${{ secrets.KILL_SWITCH }}
+      ANALYTICS_ARCUS_ADDRESS: ${{ secrets.ANALYTICS_ARCUS_ADDRESS }}
+      ARCUS_ADDRESS: ${{ secrets.ARCUS_ADDRESS }}
+      ARCUS_SIGNING_KEY: ${{ secrets.ARCUS_SIGNING_KEY }}
+      ANALYTICS_MEXC_API_KEY: ${{ secrets.ANALYTICS_MEXC_API_KEY }}
+      ANALYTICS_MEXC_API_SECRET: ${{ secrets.ANALYTICS_MEXC_API_SECRET }}
+      ANALYTICS_MEXC_FUTURES_API_KEY: ${{ secrets.ANALYTICS_MEXC_FUTURES_API_KEY }}
+      ANALYTICS_MEXC_FUTURES_API_SECRET: ${{ secrets.ANALYTICS_MEXC_FUTURES_API_SECRET }}
+      MEXC_API_KEY: ${{ secrets.MEXC_API_KEY }}
+      MEXC_API_SECRET: ${{ secrets.MEXC_API_SECRET }}
+      MEXC_FUTURES_API_KEY: ${{ secrets.MEXC_FUTURES_API_KEY }}
+      MEXC_FUTURES_API_SECRET: ${{ secrets.MEXC_FUTURES_API_SECRET }}
+      RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+      RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}

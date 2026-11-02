@@ -4,7 +4,7 @@
 
 このテンプレートからプライベートなリポジトリを作ります。そのリポジトリが、一つの Analytics VM を配備します。コアのソース、会場のソース、秘密の値は入りません。
 
-`core-pin` は `76ae64a648b58807c070a644c0b006d755063b9e` です。`SignalNexus/signal-nexus` のその commit に、`analytics-deploy.yml` と `venueadd-install.yml` があります。`.github/workflows/deploy.yml` は、`uses` の ref と `core_sha` に同じ commit を使います。コアのツリーは `SignalNexus/signal-nexus` です。
+`core-pin` は `fcb45978df5b17d081b895c24ca1a5ba84d4c3e7` です。`SignalNexus/signal-nexus` のその commit に、`analytics-deploy.yml` と `venueadd-install.yml` があります。`.github/workflows/deploy.yml` は、`uses` の ref と `core_sha` に同じ commit を使います。コアのツリーは `SignalNexus/signal-nexus` です。
 
 ## 最初の実行の前
 
@@ -16,7 +16,7 @@
 
 ## 実行
 
-`deploy` workflow を `workflow_dispatch` で実行します。変数と secret は、公開の reusable workflow へ渡します。workflow にホスト名はありません。
+`deploy` workflow を `workflow_dispatch` で実行します。各 secret は名前で、公開の reusable workflow へ渡します。workflow にホスト名はありません。`venues: []` に `VENUEADD_READ_TOKEN` は要りません。
 
 ## リポジトリのアクセス
 
