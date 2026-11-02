@@ -3,3 +3,10 @@ example-btc-spot:
   side: long
   venue: mexc_spot
   size_quote: 10
+  leverage: 1
+  enabled: true
+  protective_exit:
+    enabled: true
+    loss_pct: 5
+    profit_pct: 20
+
