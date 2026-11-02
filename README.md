@@ -9,7 +9,7 @@ Generate a private repository from this template. The repository deploys one Ana
 ## Before the first run
 
 1. Replace `config/strategies.yml`. The file in this template is `{}`. It is not a registry. The workflow hashes this file and passes that blob. The reusable workflow reads this repository's file, not a file from the public core.
-2. Leave `venueadd/venues.yaml` as `venues: []` until a purchased venue is added. Each added `sha` is 40 hex characters. Create the `checkout_token` secret when the list is not empty.
+2. Leave `venueadd/venues.yaml` as `venues: []` until a purchased venue is added. Each added `sha` is 40 hex characters. When the list is not empty, store one fine-grained personal access token as the `VENUEADD_READ_TOKEN` secret. Signal Nexus does not keep that token.
 3. Create the Actions variables and secrets named in [deploy/target.env.example](deploy/target.env.example). Set `DEPLOY_ANALYTICS` to `true`. Do not commit the values.
 
 When you move to a newer public core commit, put that commit in `core-pin` and in both places in `deploy.yml`. The pin job stops when they differ.
@@ -18,9 +18,11 @@ When you move to a newer public core commit, put that commit in `core-pin` and i
 
 Run the `deploy` workflow with `workflow_dispatch`. The workflow passes the variables and secrets into the public reusable workflow. It does not contain a host name.
 
-## Deploy key
+## Repository access
 
-The workflow accepts one `checkout_token`. `venues: []` needs no token. Do not add a purchased venue to `venues.yaml` until the workflow takes one deploy key per row. A refund removes that key. If the row remains, fetch fails and the host job does not restart.
+The workflow accepts one `venueadd_read_token`. The customer stores that value as `VENUEADD_READ_TOKEN`. It is a fine-grained personal access token whose resource owner is the organization that owns the venue repositories, with Contents: Read, for repositories that customer can already read. `venues: []` needs no token.
+
+The customer is an outside collaborator with Read on each purchased repository. A row for a repository the token cannot read fails the fetch, and the host job does not restart. A refund removes the manifest row, runs deploy once, and then removes that Read grant. Removing Read while the row remains fails the next deploy before restart. The installed tree is removed by the green deploy that no longer names it.
 
 ## Rollback
 
