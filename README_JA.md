@@ -6,7 +6,7 @@
 
 配備の正本は、`SignalNexus/signal-nexus` の [Community Deployment Guide](https://github.com/SignalNexus/signal-nexus/blob/main/docs/COMMUNITY_DEPLOYMENT_GUIDE.md) です。
 
-`core-pin` は `7b6d8c0a03a6ec1510fa7f786a13ed2e39803523` です。`SignalNexus/signal-nexus` のその commit は、`BUILTIN_VENUES` に `mexc_futures` が含まれるときだけ `deploy.futures_read` を実行します。`.github/workflows/deploy.yml` は、`uses` の ref と `core_sha` に同じ commit を使います。コアのツリーは `SignalNexus/signal-nexus` です。
+`core-pin` は `2e3cc5ee445c352d88e65a41a37bf7fdc5aa075d` です。`SignalNexus/signal-nexus` のその commit は、`BUILTIN_VENUES` に `mexc_futures` が含まれるときだけ `deploy.futures_read` を実行します。`.github/workflows/deploy.yml` は、`uses` の ref と `core_sha` に同じ commit を使います。コアのツリーは `SignalNexus/signal-nexus` です。
 
 ## 最初の実行の前
 
