@@ -6,7 +6,7 @@ Generate a private repository from this template. The repository deploys one Ana
 
 The deployment authority is the [Community Deployment Guide](https://github.com/SignalNexus/signal-nexus/blob/main/docs/COMMUNITY_DEPLOYMENT_GUIDE.md) in `SignalNexus/signal-nexus`.
 
-`core-pin` is `2e3cc5ee445c352d88e65a41a37bf7fdc5aa075d`. That commit of `SignalNexus/signal-nexus` runs `deploy.futures_read` only when `BUILTIN_VENUES` contains `mexc_futures`. `.github/workflows/deploy.yml` uses that same commit for the `uses` ref and for `core_sha`. The core tree is `SignalNexus/signal-nexus`.
+`core-pin` is `6468be5be0869203b05ee6e1d134878b3cce6c68`. That commit of `SignalNexus/signal-nexus` runs `deploy.futures_read` only when `BUILTIN_VENUES` contains `mexc_futures`. `.github/workflows/deploy.yml` uses that same commit for the `uses` ref and for `core_sha`. The core tree is `SignalNexus/signal-nexus`.
 
 ## Before the first run
 

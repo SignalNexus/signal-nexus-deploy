@@ -44,10 +44,10 @@ jobs:
   deploy:
     needs: pin
     if: vars.DEPLOY_ANALYTICS == 'true'
-    uses: SignalNexus/signal-nexus/.github/workflows/analytics-deploy.yml@2e3cc5ee445c352d88e65a41a37bf7fdc5aa075d
+    uses: SignalNexus/signal-nexus/.github/workflows/analytics-deploy.yml@6468be5be0869203b05ee6e1d134878b3cce6c68
     with:
       core_repository: SignalNexus/signal-nexus
-      core_sha: 2e3cc5ee445c352d88e65a41a37bf7fdc5aa075d
+      core_sha: 6468be5be0869203b05ee6e1d134878b3cce6c68
       expected_strategies_blob: ${{ needs.pin.outputs.strategies_blob }}
       venues_manifest: venueadd/venues.yaml
       ssh_user: ${{ vars.ANALYTICS_SSH_USER }}
